@@ -1,4 +1,4 @@
-# Hypokalemia ICU Mortality Risk Model (R2 Locked Run)
+# Hypokalemia ICU Mortality Risk Model
 
 **Research use only. Not for clinical use.**
 
@@ -24,7 +24,7 @@ python inference.py
 | Path | Purpose |
 |------|---------|
 | `inference.py` | Single-patient 7-day mortality probability |
-| `model_weights/8_features_model.pkl` | Locked ensemble + imputer + scaler |
+| `model_weights/8_features_model.pkl` | Ensemble + imputer + scaler |
 | `scripts/` | Full analysis pipeline (includes `subgroup_analysis.py`) |
 | `sql/` | MIMIC t₀ and severity score export SQL (optional upgrade) |
 | `docs/` | Methods specs, data dictionary, **Excel preprocessing guide** |
@@ -35,11 +35,11 @@ python inference.py
 
 1. Obtain MIMIC-III / MIMIC-IV access via [PhysioNet](https://physionet.org/).
 2. Place locally prepared feature tables at `data/mimic_dataset.xlsx` (not provided). See [docs/preprocessing_excel.md](docs/preprocessing_excel.md).
-3. Run the locked pipeline:
+3. Run the full analysis pipeline:
 
 ```bash
 python scripts/validate_excel_input.py
-python scripts/run_locked_pipeline.py
+python scripts/run_pipeline.py
 ```
 
 Or step by step:
@@ -48,8 +48,8 @@ Or step by step:
 python scripts/validate_excel_input.py
 python scripts/prepare_t0_labs_parquet.py
 python scripts/build_t0_cohort.py
-python scripts/r2_locked_run.py
-python scripts/r2_extended_outputs.py
+python scripts/train_models.py
+python scripts/supplementary_analysis.py
 python scripts/benchmark_severity_scores.py
 python scripts/build_table1_baseline.py
 python scripts/export_github_weights.py
@@ -66,7 +66,7 @@ Chinese external validation (F3/NH) requires locally held files under `data/exte
 - Outcome: death within 7 calendar days from t₀
 - Natural class prevalence (no undersampling)
 
-Locked run metrics (manifest v2): MIMIC-III test AUROC 0.717; MIMIC-IV AUROC 0.835.
+Main analysis metrics (see `result/analysis/manifest.json`): MIMIC-III test AUROC 0.717; MIMIC-IV AUROC 0.835.
 
 ## Citation and availability
 

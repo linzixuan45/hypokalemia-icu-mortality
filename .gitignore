@@ -2,7 +2,7 @@
 data/
 !data/README.md
 result/
-result/r2_locked/reports/
+result/analysis/reports/
 
 # Python
 __pycache__/

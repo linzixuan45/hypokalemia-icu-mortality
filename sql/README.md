@@ -43,13 +43,13 @@ python3 scripts/audit_mimic_excel.py
 
 ## After SQL or Excel t₀ export
 
-Re-run the locked pipeline from cohort build:
+Re-run the analysis pipeline from cohort build:
 
 ```bash
 python3 scripts/build_t0_cohort.py
-python3 scripts/r2_locked_run.py
-python3 scripts/r2_extended_outputs.py
+python3 scripts/train_models.py
+python3 scripts/supplementary_analysis.py
 python3 scripts/benchmark_severity_scores.py
 ```
 
-Or: `python3 scripts/run_locked_pipeline.py --skip-validate`
+Or: `python3 scripts/run_pipeline.py --skip-validate`

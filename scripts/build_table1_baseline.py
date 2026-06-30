@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Table 1: MIMIC-III development (train) baseline from Excel + locked train IDs — no SQL."""
+"""Table 1: MIMIC-III development (train) baseline from Excel + train IDs — no SQL."""
 from __future__ import annotations
 
 import re
@@ -11,8 +11,8 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "mimic_dataset.xlsx"
-TRAIN_IDS = ROOT / "result" / "r2_locked" / "cohorts" / "mimic3_train_ids.csv"
-OUT = ROOT / "result" / "r2_locked" / "tables" / "table1_baseline.csv"
+TRAIN_IDS = ROOT / "result" / "analysis" / "cohorts" / "mimic3_train_ids.csv"
+OUT = ROOT / "result" / "analysis" / "tables" / "table1_baseline.csv"
 
 LAB_ROWS = [
     "Chloride",

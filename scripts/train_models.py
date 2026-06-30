@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R2 locked run: train 20/8-feature ensembles without undersampling; write preds + tables."""
+"""Train 20/8-feature ensembles without undersampling; write preds + tables."""
 from __future__ import annotations
 
 import json
@@ -44,7 +44,7 @@ from external_cohort_data import (
     load_corrected_nh_feature_table,
 )
 
-OUT = ROOT / "result" / "r2_locked"
+OUT = ROOT / "result" / "analysis"
 PREDS = OUT / "preds"
 TABLES = OUT / "tables"
 FIGURES = OUT / "figures"
@@ -350,8 +350,8 @@ def main():
     f20 = load_lasso20()
     f8 = [f for f in FEAT8]
 
-    res20, model20, imp20, sc20, _ = train_and_predict(f20, "21_features")
-    res8, model8, imp8, sc8, _ = train_and_predict(f8, "9_features")
+    res20, model20, imp20, sc20, _ = train_and_predict(f20, "20_features")
+    res8, model8, imp8, sc8, _ = train_and_predict(f8, "8_features")
 
     write_table23(
         {"test": res20["test"], "val": res20["val"]},
@@ -375,7 +375,7 @@ def main():
             y, prob, n, ev = infer_external(model, imp, scaler, feats, df)
             auc, lo, hi = delong_ci(y, prob)
             ext_rows.append({"Cohort": tag, "n": n, "Events": ev, "AUROC": auc, "CI_lo": lo, "CI_hi": hi})
-            with open(PREDS / f"9_features_{tag}_preds.pkl", "wb") as f:
+            with open(PREDS / f"8_features_{tag}_preds.pkl", "wb") as f:
                 pickle.dump([{"model_name": "Ensemble_Stacking", "lable": y.tolist(), "pred_prob": prob.tolist(), "n": n, "events": ev}], f)
             all_cal.append((tag, y, prob))
     else:
@@ -429,19 +429,19 @@ def main():
 
 
 def _export_legacy_pred_layout(sc8, sc20):
-    """Copy preds to names expected by complete_revision.py."""
+    """Legacy pred layout compat: copy preds into per-model subdirs."""
     import shutil
 
     subdirs = {
-        "21_features": [
-            ("test_preds.pkl", "21_features_test_preds.pkl"),
-            ("val_preds.pkl", "21_features_val_preds.pkl"),
+        "20_features": [
+            ("test_preds.pkl", "20_features_test_preds.pkl"),
+            ("val_preds.pkl", "20_features_val_preds.pkl"),
         ],
-        "9_features": [
-            ("test_preds.pkl", "9_features_test_preds.pkl"),
-            ("val_preds.pkl", "9_features_val_preds.pkl"),
-            ("F3_preds.pkl", "9_features_F3_preds.pkl"),
-            ("NH_preds.pkl", "9_features_NH_preds.pkl"),
+        "8_features": [
+            ("test_preds.pkl", "8_features_test_preds.pkl"),
+            ("val_preds.pkl", "8_features_val_preds.pkl"),
+            ("F3_preds.pkl", "8_features_F3_preds.pkl"),
+            ("NH_preds.pkl", "8_features_NH_preds.pkl"),
         ],
     }
     for sub, pairs in subdirs.items():
@@ -451,7 +451,7 @@ def _export_legacy_pred_layout(sc8, sc20):
             src_path = PREDS / src
             if src_path.exists():
                 shutil.copy2(src_path, d / dest)
-    for tag, scaler in [("9_features", sc8), ("21_features", sc20)]:
+    for tag, scaler in [("8_features", sc8), ("20_features", sc20)]:
         wdir = OUT / "model_weight" / tag
         wdir.mkdir(parents=True, exist_ok=True)
         with open(wdir / "stand_encoder.pkl", "wb") as f:

@@ -11,7 +11,7 @@
 ## Model
 
 - 8-feature stacking ensemble (XGBoost + Random Forest + Logistic Regression meta-learner)
-- Trained on MIMIC-III with t₀-reanchored cohort (R2 locked run v2)
+- Trained on MIMIC-III with t₀-reanchored cohort (`train_models.py`)
 - Natural class prevalence (no undersampling)
 - Youden threshold from 5-fold out-of-fold predictions on the training set
 
@@ -35,7 +35,7 @@ See `docs/data_dictionary.md` for timing rules.
 - MIMIC-III (2001–2012), credentialed PhysioNet access required for replication
 - Index time: first K⁺ < 3.5 mmol/L
 
-## Performance (locked v2, manuscript)
+## Performance (manuscript)
 
 | Cohort | n | Events | AUROC |
 |--------|---|--------|-------|

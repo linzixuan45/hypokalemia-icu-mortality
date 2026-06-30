@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Table 5: SOFA / APACHE II / SAPS II vs ML on locked evaluation subsets."""
+"""Table 5: SOFA / APACHE II / SAPS II vs ML on evaluation subsets."""
 from __future__ import annotations
 
 import json
@@ -16,9 +16,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
-from r2_locked_run import delong_ci, calibration_metrics
+from train_models import delong_ci, calibration_metrics
 
-OUT = ROOT / "result" / "r2_locked"
+OUT = ROOT / "result" / "analysis"
 TABLES = OUT / "tables"
 SEVERITY_PATH = ROOT / "data" / "mimic_severity_scores.parquet"
 DATA_PATH = ROOT / "data" / "mimic_dataset.xlsx"
@@ -88,8 +88,8 @@ def main():
     TABLES.mkdir(parents=True, exist_ok=True)
     rows = []
 
-    # ML rows from locked preds
-    for model, tag in [("20-feature ML", "21_features"), ("8-feature ML", "9_features")]:
+    # ML rows from saved predictions
+    for model, tag in [("20-feature ML", "20_features"), ("8-feature ML", "8_features")]:
         for split, cohort in [("test", "MIMIC-III internal"), ("val", "MIMIC-IV temporal")]:
             y, prob, _ = load_preds(tag, split)
             auc, lo, hi = delong_ci(y, prob)
@@ -179,7 +179,7 @@ def main():
 
 
 def _sofa_scores_for_cohort(cohort_name: str):
-    """Return y, sofa scores aligned to locked evaluation IDs."""
+    """Return y, sofa scores aligned to evaluation cohort IDs."""
     test_ids = pd.read_csv(COHORT / "mimic3_test_ids.csv")
     val_ids = pd.read_csv(COHORT / "mimic4_val_ids.csv")
     m3 = pd.read_excel(DATA_PATH, sheet_name="mimic3_low_k")
@@ -213,7 +213,7 @@ def _sofa_scores_for_cohort(cohort_name: str):
 def write_table5_incremental():
     """ΔAUROC (ML − SOFA) with 95% CI and DeLong p-value."""
     inc_rows = []
-    for ml_label, tag in [("8-feature", "9_features"), ("20-feature", "21_features")]:
+    for ml_label, tag in [("8-feature", "8_features"), ("20-feature", "20_features")]:
         for cohort_name, split in [
             ("MIMIC-III internal", "test"),
             ("MIMIC-IV temporal", "val"),

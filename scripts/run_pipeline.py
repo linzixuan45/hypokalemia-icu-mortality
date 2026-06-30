@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the Excel-based locked R2 pipeline end-to-end."""
+"""Run the Excel-based analysis pipeline end-to-end."""
 from __future__ import annotations
 
 import argparse
@@ -22,7 +22,7 @@ def run_step(name: str, script: str, extra_args: list[str] | None = None) -> Non
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Excel-based locked R2 pipeline")
+    parser = argparse.ArgumentParser(description="Excel-based analysis pipeline")
     parser.add_argument("--skip-validate", action="store_true")
     parser.add_argument("--skip-extended", action="store_true")
     parser.add_argument("--skip-weights", action="store_true")
@@ -37,10 +37,10 @@ def main() -> None:
 
     run_step("prepare_t0_labs_parquet", "prepare_t0_labs_parquet.py")
     run_step("build_t0_cohort", "build_t0_cohort.py")
-    run_step("r2_locked_run", "r2_locked_run.py")
+    run_step("train_models", "train_models.py")
 
     if not args.skip_extended:
-        run_step("r2_extended_outputs", "r2_extended_outputs.py")
+        run_step("supplementary_analysis", "supplementary_analysis.py")
         run_step("benchmark_severity_scores", "benchmark_severity_scores.py")
 
     run_step("build_table1_baseline", "build_table1_baseline.py")

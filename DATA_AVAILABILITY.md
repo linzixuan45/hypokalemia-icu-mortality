@@ -23,7 +23,7 @@ Validate your Excel before running:
 
 ```bash
 python scripts/validate_excel_input.py
-python scripts/run_locked_pipeline.py
+python scripts/run_pipeline.py
 ```
 
 ## Chinese external validation (not redistributed)

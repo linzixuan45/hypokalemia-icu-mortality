@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit mimic_dataset.xlsx columns for R2 t₀ / severity-score data gaps."""
+"""Audit mimic_dataset.xlsx columns for t₀ / severity-score data gaps."""
 from __future__ import annotations
 
 import argparse
@@ -10,7 +10,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DATA = ROOT / "data" / "mimic_dataset.xlsx"
-DEFAULT_OUT = ROOT / "result" / "r2_locked" / "reports" / "audit_mimic_excel_report.json"
+DEFAULT_OUT = ROOT / "result" / "analysis" / "reports" / "audit_mimic_excel_report.json"
 
 
 def audit_sheet(name: str, data_path: Path) -> dict:

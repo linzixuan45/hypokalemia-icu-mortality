@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate mimic_dataset.xlsx before running the locked pipeline."""
+"""Validate mimic_dataset.xlsx before running the analysis pipeline."""
 from __future__ import annotations
 
 import argparse
@@ -11,7 +11,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DATA = ROOT / "data" / "mimic_dataset.xlsx"
-DEFAULT_REPORT = ROOT / "result" / "r2_locked" / "reports" / "excel_validation.json"
+DEFAULT_REPORT = ROOT / "result" / "analysis" / "reports" / "excel_validation.json"
 
 REQUIRED_SHEETS = ("mimic3_low_k", "mimic4_low_k")
 
@@ -162,10 +162,10 @@ def run_validation(data_path: Path, *, strict: bool) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Validate mimic_dataset.xlsx for locked pipeline")
+    parser = argparse.ArgumentParser(description="Validate mimic_dataset.xlsx for analysis pipeline")
     parser.add_argument("--data-path", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--strict", action="store_true", help="Treat missing core columns as errors")
-    parser.add_argument("--report", action="store_true", help="Write JSON report under result/r2_locked/reports/")
+    parser.add_argument("--report", action="store_true", help="Write JSON report under result/analysis/reports/")
     args = parser.parse_args()
 
     report = run_validation(args.data_path, strict=args.strict)

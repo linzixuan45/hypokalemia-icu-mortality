@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""8-feature locked-model inference for research demo."""
+"""8-feature research model inference for research demo."""
 from __future__ import annotations
 
 import pickle

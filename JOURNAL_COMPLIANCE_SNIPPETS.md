@@ -55,5 +55,5 @@ We have added an explicit statement to the Methods section confirming that all m
 | GitHub URL | Pending | |
 | Zenodo concept DOI | Pending | |
 | Zenodo version DOI | Pending | |
-| Release tag | Recommended | `v1.0.0-r2-locked` |
+| Release tag | Recommended | `v1.0.0` |
 | Submission ID | Known | `91406a0b-fc8b-4fcf-95bc-820b99f21793` |

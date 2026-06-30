@@ -26,7 +26,7 @@ from external_cohort_data import (
     load_corrected_nh_feature_table,
 )
 
-OUT = ROOT / "result" / "r2_locked"
+OUT = ROOT / "result" / "analysis"
 TABLES = OUT / "tables"
 MIN_POS, MIN_NEG = 5, 5
 
@@ -68,8 +68,8 @@ def delong_ci(y_true, y_score, alpha=0.05):
     return auc, max(0.0, auc - z * se), min(1.0, auc + z * se)
 
 
-def load_locked_cohort_raw():
-    """Load evaluation cohorts aligned with result/r2_locked/cohorts ID lists."""
+def load_evaluation_cohorts():
+    """Load evaluation cohorts aligned with result/analysis/cohorts ID lists."""
     data_path = ROOT / "data" / "mimic_dataset.xlsx"
     cohort_dir = OUT / "cohorts"
     mimic3_raw = pd.read_excel(data_path, sheet_name="mimic3_low_k")
@@ -82,7 +82,7 @@ def load_locked_cohort_raw():
     return val_raw, test_raw
 
 
-def _pred_pkl_path(split: str, model_tag: str = "9_features") -> Path:
+def _pred_pkl_path(split: str, model_tag: str = "8_features") -> Path:
     for path in (
         OUT / "preds" / model_tag / f"{split}_preds.pkl",
         OUT / "preds" / f"{model_tag}_{split}_preds.pkl",
@@ -92,7 +92,7 @@ def _pred_pkl_path(split: str, model_tag: str = "9_features") -> Path:
     raise FileNotFoundError(f"No prediction file for split={split} tag={model_tag}")
 
 
-def _load_mimic_pred(split: str, model_tag: str = "9_features") -> dict:
+def _load_mimic_pred(split: str, model_tag: str = "8_features") -> dict:
     with open(_pred_pkl_path(split, model_tag), "rb") as f:
         data = pickle.load(f)
     d = data[-1]
@@ -104,7 +104,7 @@ def _load_mimic_pred(split: str, model_tag: str = "9_features") -> dict:
     }
 
 
-def load_predictions(model_tag: str = "9_features"):
+def load_predictions(model_tag: str = "8_features"):
     """Load MIMIC predictions from pkl; score F3/NH when external data exist."""
     preds = {
         "val": _load_mimic_pred("val", model_tag),
@@ -195,13 +195,13 @@ def define_subgroups(df):
     return groups
 
 
-def run_subgroup_analysis(model_tag: str = "9_features") -> pd.DataFrame:
+def run_subgroup_analysis(model_tag: str = "8_features") -> pd.DataFrame:
     print("=" * 80)
     print(f"  Subgroup Analysis — Ensemble_Stacking AUROC + 95% DeLong CI ({model_tag})")
     print("=" * 80)
 
-    print("\n[1] Loading locked cohort splits...")
-    val_raw, test_raw = load_locked_cohort_raw()
+    print("\n[1] Loading evaluation cohort splits...")
+    val_raw, test_raw = load_evaluation_cohorts()
     preds = load_predictions(model_tag=model_tag)
 
     print(f"    val  (MIMIC-IV): raw={len(val_raw)}, pkl={len(preds['val']['y_true'])}")

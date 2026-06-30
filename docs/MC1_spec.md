@@ -1,6 +1,7 @@
 # MC1 方法学规格 — Index Time (t₀) 与预测任务
 
 **状态**：**已定稿 v1**（2026-05-24）  
+**代码映射**：`run_pipeline.py` · `train_models.py` · `supplementary_analysis.py`  
 **关联**：`TODO.md` P0 · `Revision_Response_R2.md` MC1 · `numbering_map.md`
 
 ---
@@ -73,7 +74,7 @@
 |------|------|--------------------------------|
 | MIMIC-III 开发 | 2001–2012，80% train / 20% internal test | 全队列 ~2432 → test 子集原 292 |
 | MIMIC-IV 外验 | 2008–2020，时间外部 | 全队列 ~1302 → val 子集原 542 |
-| 评估子集 | 与 locked `preds.pkl` **同一 patient/stay ID** | 重跑后更新 `paper_data_overview.md` |
+| 评估子集 | 与 `preds.pkl` **同一 patient/stay ID** | 重跑后更新 `paper_data_overview.md` |
 
 ---
 
@@ -81,7 +82,7 @@
 
 | 队列 | 队列定义 | 模型 |
 |------|----------|------|
-| F3 / NH | **沿用 R1 队列定义**（非 MIMIC t₀ 重锚定） | 应用 **MIMIC-t₀ 重训后的 locked 8/20-feature 模型** 外推 |
+| F3 / NH | **沿用 R1 队列定义**（非 MIMIC t₀ 重锚定） | 应用 **MIMIC-t₀ 重训后的 8/20-feature 模型** 外推 |
 | Methods 表述 | Geographic exploratory validation under original cohort definition; not re-anchored to t₀ | |
 
 ---
@@ -101,7 +102,7 @@
 - [ ] Methods「Index time and prediction task」与本文 §1–§5 一致
 - [ ] Abstract 无 admission-time prediction 措辞
 - [ ] 评估子集 n 与 Table 2–3 脚注、Figure 1 一致
-- [ ] `result/r2_locked/manifest.json` 记录 cohort 版本、git commit、随机种子
+- [ ] `result/analysis/manifest.json` 记录 pipeline、git commit、随机种子
 
 ---
 

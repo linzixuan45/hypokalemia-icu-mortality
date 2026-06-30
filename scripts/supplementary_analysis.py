@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R2 P1/P2 extended outputs — DCA, sensitivities, S6-S15, Figure 5/7, TRIPOD/PROBAST."""
+"""Supplementary analysis — DCA, sensitivities, S6-S15, Figure 5/7, TRIPOD/PROBAST."""
 from __future__ import annotations
 
 import json
@@ -33,7 +33,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
-from r2_locked_run import (
+from train_models import (
     FEAT8,
     build_stacking,
     delong_ci,
@@ -45,11 +45,11 @@ from r2_locked_run import (
 from external_cohort_data import external_cohorts_available
 from dataset import MIMIC3_THRESHOLD, MISSING_THRESHOLD
 
-OUT = ROOT / "result" / "r2_locked"
+OUT = ROOT / "result" / "analysis"
 TABLES = OUT / "tables"
 FIGURES = OUT / "figures"
-PREDS9 = OUT / "preds" / "9_features"
-PREDS21 = OUT / "preds" / "21_features"
+PREDS8 = OUT / "preds" / "8_features"
+PREDS20 = OUT / "preds" / "20_features"
 DATA_PATH = ROOT / "data" / "mimic_dataset.xlsx"
 COHORT = OUT / "cohorts"
 RANDOM_STATE = 42
@@ -62,10 +62,10 @@ def _eval_cohort_splits() -> list[tuple[str, str]]:
     return cohorts
 
 
-def _pred_path(split: str, tag: str = "9_features") -> Path:
+def _pred_path(split: str, tag: str = "8_features") -> Path:
     for path in (
         OUT / "preds" / f"{tag}_{split}_preds.pkl",
-        PREDS9 / f"{split}_preds.pkl",
+        PREDS8 / f"{split}_preds.pkl",
     ):
         if path.exists():
             return path
@@ -77,12 +77,12 @@ def load_pkl(path):
         return pickle.load(f)
 
 
-def load_stacking(tag: str = "9_features"):
+def load_stacking(tag: str = "8_features"):
     bundle = load_pkl(OUT / "model_weight" / tag / "model_weight.pkl")
     return bundle["Ensemble_Stacking"], bundle["imputer"], bundle["scaler"], bundle["features"]
 
 
-def _load_pred_any(split: str, tag: str = "9_features"):
+def _load_pred_any(split: str, tag: str = "8_features"):
     path = _pred_path(split, tag)
     d = load_pkl(path)[0]
     return np.array(d["lable"]), np.array(d["pred_prob"])
@@ -153,12 +153,12 @@ def generate_dca_figures():
 
     # Supp S5 — available cohorts only
     datasets = {
-        "MIMIC-III": PREDS9 / "test_preds.pkl",
-        "MIMIC-IV": PREDS9 / "val_preds.pkl",
+        "MIMIC-III": PREDS8 / "test_preds.pkl",
+        "MIMIC-IV": PREDS8 / "val_preds.pkl",
     }
     if external_cohorts_available():
-        datasets["F3"] = PREDS9 / "F3_preds.pkl"
-        datasets["NH"] = PREDS9 / "NH_preds.pkl"
+        datasets["F3"] = PREDS8 / "F3_preds.pkl"
+        datasets["NH"] = PREDS8 / "NH_preds.pkl"
     datasets = {k: v for k, v in datasets.items() if v.exists()}
     n_panels = len(datasets)
     ncols = 2 if n_panels > 1 else 1
@@ -219,7 +219,7 @@ def los_sensitivity_s14():
     idc = "icustay_id" if "icustay_id" in test_ids.columns else "subject_id"
     test = m3.merge(test_ids, on=idc, how="inner")
 
-    model, imp, scaler, _ = load_stacking("21_features")
+    model, imp, scaler, _ = load_stacking("20_features")
     rows = []
     for label, drop_los in [("With LOS predictors", False), ("Without LOS predictors", True)]:
         feats = [c for c in f20 if c not in los_cols] if drop_los else f20
@@ -455,7 +455,7 @@ def delong_pairwise_s15():
     for cohort, split in _eval_cohort_splits():
         y, p8 = _load_pred_any(split)
         try:
-            _, p20 = _load_pred_any(split, "21_features")
+            _, p20 = _load_pred_any(split, "20_features")
         except FileNotFoundError:
             rows.append({"Cohort": cohort, "AUROC_20": "NA", "CI_20": "NA", "AUROC_8": round(delong_ci(y, p8)[0], 3), "CI_8": "NA", "DeLong_p": "NA"})
             continue
@@ -507,8 +507,8 @@ def generate_tripod_s7():
     items = [
         ("5a", "Outcome", "7-day mortality from first K+ <3.5 (t0)", "Methods Index time; MC1_spec"),
         ("5b", "Predictors", "All predictors at or before t0", "Methods; MC1_spec S5"),
-        ("7a", "Analysis", "No random undersampling; natural prevalence", "Methods; locked run"),
-        ("10a", "Performance", "AUROC with DeLong CI from r2_locked", "Tables 2-3; manifest.json"),
+        ("7a", "Analysis", "No random undersampling; natural prevalence", "Methods"),
+        ("10a", "Performance", "AUROC with DeLong CI from train_models", "Tables 2-3; manifest.json"),
         ("AI-7", "Reproducibility", "GitHub release + manifest", "Project_low_K repository"),
     ]
     base_path = ROOT / "config" / "table_s7_tripod_ai_checklist.csv"
@@ -517,7 +517,7 @@ def generate_tripod_s7():
     base = pd.read_csv(base_path)
     extra = pd.DataFrame(items, columns=["Item", "Section", "Description", "Location in Manuscript"])
     out = pd.concat([base, extra]).drop_duplicates(subset=["Item"], keep="last")
-    out.to_csv(TABLES / "table_s7_tripod_ai_r2.csv", index=False)
+    out.to_csv(TABLES / "table_s7_tripod_checklist.csv", index=False)
 
 
 def generate_probast_s11():
@@ -528,7 +528,7 @@ def generate_probast_s11():
         {"Domain": "Participants", "Arm": "External (F3/NH)", "Rating": "High", "Note": "Small n; exploratory geographic only"},
         {"Domain": "Predictors", "Arm": "All", "Rating": "Moderate", "Note": "Excel proxy t0 until SQL export"},
         {"Domain": "Outcome", "Arm": "All", "Rating": "Low", "Note": "Hospital mortality objectively ascertained"},
-        {"Domain": "Analysis", "Arm": "Development", "Rating": "Moderate", "Note": "Prior undersampling removed in R2 locked run"},
+        {"Domain": "Analysis", "Arm": "Development", "Rating": "Moderate", "Note": "Natural prevalence; no random undersampling"},
         {"Domain": "Analysis", "Arm": "External", "Rating": "Moderate", "Note": "NH ensemble-driven label refinement"},
     ]
     pd.DataFrame(rows).to_csv(TABLES / "table_s11_probast_ai.csv", index=False)
@@ -545,7 +545,7 @@ def generate_figure7_shap():
         print("  skip: shap not installed")
         return
 
-    model, imp, scaler, feats = load_stacking("9_features")
+    model, imp, scaler, feats = load_stacking("8_features")
     xgb = model.named_estimators_["xgb"]
     m4 = pd.read_excel(DATA_PATH, sheet_name="mimic4_low_k")
     val_ids = pd.read_csv(COHORT / "mimic4_val_ids.csv")
@@ -583,7 +583,7 @@ def generate_figure7_shap():
     ax.set_xlabel("FPR")
     ax.set_ylabel("TPR")
     ax.legend(fontsize=8)
-    ax.set_title("Figure 7B: ROC four cohorts (locked run)")
+    ax.set_title("Figure 7B: ROC four cohorts")
     fig.tight_layout()
     fig.savefig(FIGURES / "figure7b_roc_four_cohorts.png", dpi=200)
     plt.close(fig)
@@ -595,9 +595,9 @@ def generate_figure7_shap():
 def table4_from_subgroup():
     print("Table 4 from subgroup (8-feature)...")
     from subgroup_analysis import run_subgroup_analysis
-    from r2_locked_run import calibration_metrics
+    from train_models import calibration_metrics
 
-    results = run_subgroup_analysis(model_tag="9_features")
+    results = run_subgroup_analysis(model_tag="8_features")
     out_path = TABLES / "table4_subgroup_summary.csv"
     main_subgroups = [
         "Overall",
@@ -610,7 +610,7 @@ def table4_from_subgroup():
     ]
     calib = {}
     for split, label in [("test", "MIMIC-III (test)"), ("val", "MIMIC-IV (val)")]:
-        y, prob = _load_pred_any(split, tag="9_features")
+        y, prob = _load_pred_any(split, tag="8_features")
         brier, slope, _ = calibration_metrics(y, prob)
         calib[label] = {"Brier": round(brier, 3), "Calibration_slope": round(slope, 3)}
 

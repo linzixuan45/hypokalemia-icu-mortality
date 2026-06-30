@@ -8,7 +8,7 @@
 ## GitHub
 
 - Repository: `[GitHub URL — fill after public push]`
-- Release tag: `v1.0.0-r2-locked` (recommended)
+- Release tag: `v1.0.0` (recommended)
 
 ## Zenodo (DOI-assigning archive)
 
@@ -38,7 +38,7 @@ An HTTPS research demonstration calculator for the 8-feature model is available 
 
 1. Push `Project_low_K` to a public GitHub repository.
 2. In Zenodo, enable GitHub integration and select the repository.
-3. Create a GitHub release (e.g. `v1.0.0-r2-locked`).
+3. Create a GitHub release (e.g. `v1.0.0`).
 4. Confirm Zenodo generates a version DOI.
 5. Replace placeholders in this file, `README.md`, and the manuscript.
 6. Add the Zenodo DOI to the point-by-point response letter.

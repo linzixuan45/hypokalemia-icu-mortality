@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export locked 8-feature bundle for github_release/."""
+"""Export 8-feature model bundle for public release."""
 from __future__ import annotations
 
 import pickle
@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "result" / "r2_locked" / "model_weight" / "9_features" / "model_weight.pkl"
+SRC = ROOT / "result" / "analysis" / "model_weight" / "8_features" / "model_weight.pkl"
 DEST_DIR = ROOT / "model_weights"
 DEST = DEST_DIR / "8_features_model.pkl"
 

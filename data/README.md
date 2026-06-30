@@ -16,7 +16,7 @@ See [docs/preprocessing_excel.md](../docs/preprocessing_excel.md) for required s
 
 ```bash
 python scripts/validate_excel_input.py
-python scripts/run_locked_pipeline.py
+python scripts/run_pipeline.py
 ```
 
-Pipeline outputs are written under `result/r2_locked/` (also gitignored).
+Pipeline outputs are written under `result/analysis/` (also gitignored).

@@ -71,8 +71,8 @@ data/mimic_dataset.xlsx
 python scripts/validate_excel_input.py
 python scripts/prepare_t0_labs_parquet.py
 python scripts/build_t0_cohort.py
-python scripts/r2_locked_run.py
-python scripts/r2_extended_outputs.py
+python scripts/train_models.py
+python scripts/supplementary_analysis.py
 python scripts/benchmark_severity_scores.py
 python scripts/build_table1_baseline.py
 python scripts/export_github_weights.py
@@ -81,7 +81,7 @@ python scripts/export_github_weights.py
 Or run the full chain:
 
 ```bash
-python scripts/run_locked_pipeline.py
+python scripts/run_pipeline.py
 ```
 
 ### Step-by-step
@@ -90,9 +90,9 @@ python scripts/run_locked_pipeline.py
 |------|--------|--------|
 | 1. Validate | `validate_excel_input.py` | JSON report; exit 0/1 |
 | 2. t₀ proxy | `prepare_t0_labs_parquet.py` | `data/mimic_t0_labs.parquet` (`source=excel_derived_interim`) |
-| 3. Cohorts | `build_t0_cohort.py` | `result/r2_locked/cohorts/*`, `manifest.json`, SOFA severity proxy |
-| 4. Train | `r2_locked_run.py` | Model weights, preds, Tables 2–6, S8–S9 |
-| 5. Extended | `r2_extended_outputs.py` | DCA, subgroups, S7–S15 |
+| 3. Cohorts | `build_t0_cohort.py` | `result/analysis/cohorts/*`, `manifest.json`, SOFA severity proxy |
+| 4. Train | `train_models.py` | Model weights, preds, Tables 2–6, S8–S9 |
+| 5. Extended | `supplementary_analysis.py` | DCA, subgroups, S7–S15 |
 | 6. Severity | `benchmark_severity_scores.py` | Table 5 (SOFA-only when SQL absent) |
 | 7. Table 1 | `build_table1_baseline.py` | `tables/table1_baseline.csv` |
 | 8. Subgroup | `subgroup_analysis.py` (via extended outputs) | `tables/table_s6_subgroup_full.csv`, `table4_subgroup_summary.csv` |
@@ -120,7 +120,7 @@ python scripts/validate_excel_input.py --report
 python scripts/validate_parquet_export.py
 ```
 
-Reports are written under `result/r2_locked/reports/` (local only, not redistributed).
+Reports are written under `result/analysis/reports/` (local only, not redistributed).
 
 ---
 
@@ -132,9 +132,9 @@ Reports are written under `result/r2_locked/reports/` (local only, not redistrib
 | `prepare_t0_labs_parquet.py` | Synthetic t₀ timing from `potassium_*` + `los_icu` |
 | `build_t0_cohort.py` | Filters, `outcome_7d`, train/test/val ID lists |
 | `dataset.py` `data_preprocess()` | Exploratory / LASSO path: encoding, clipping, optional SMOTE |
-| `r2_locked_run.py` `prep_frame()` | Locked-run training: encoding, imputation, scaling |
+| `train_models.py` `prep_frame()` | Main training: encoding, imputation, scaling |
 
-The **locked R2 manuscript path** uses `r2_locked_run.py`, not `DATASET.data_preprocess()`.
+The **main analysis path** uses `train_models.py`, not `DATASET.data_preprocess()`.
 
 ---
 
@@ -143,5 +143,5 @@ The **locked R2 manuscript path** uses `r2_locked_run.py`, not `DATASET.data_pre
 - No charttime-level serum potassium in the Excel export; t₀ uses **excel_derived_interim** proxy per [MC1_spec.md](MC1_spec.md).
 - APACHE II and SAPS II are absent unless SQL severity export is added.
 - F3/NH geographic validation is skipped when `data/external/mimic_validation_cohorts.xlsx` is absent (MIMIC-only path).
-- Metrics may differ slightly from the published locked v2 run if your Excel build or proxy timing differs.
+- Metrics may differ slightly from the published manuscript if your Excel build or proxy timing differs.
 - **Research use only. Not for clinical use.**

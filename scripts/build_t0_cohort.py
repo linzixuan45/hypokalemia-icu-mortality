@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build R2 t₀ cohort ID lists and manifest for locked run.
+Build t₀ cohort ID lists and manifest.
 
 Uses data/mimic_t0_labs.parquet when present; otherwise Excel proxy per MC1_spec §3.
 """
@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "mimic_dataset.xlsx"
 T0_LABS_PATH = ROOT / "data" / "mimic_t0_labs.parquet"
 SEVERITY_PATH = ROOT / "data" / "mimic_severity_scores.parquet"
-OUT = ROOT / "result" / "r2_locked"
+OUT = ROOT / "result" / "analysis"
 COHORT_DIR = OUT / "cohorts"
 RANDOM_STATE = 42
 LOS_ICU_MIN_DAYS = 1.0  # >= 24 h primary analysis
@@ -227,7 +227,7 @@ def _severity_source() -> str:
 
 def write_manifest(t0_source: str, n_train: int, n_test: int, n_val: int) -> None:
     manifest = {
-        "version": "r2_locked_v2",
+        "pipeline": "hypokalemia_mortality",
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "mc1_spec_status": "finalized_2026-05-24",
         "git_commit": _git_commit(),
