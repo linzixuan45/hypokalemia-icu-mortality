@@ -542,7 +542,10 @@ def generate_figure7_shap():
     try:
         import shap
     except ImportError:
-        print("  skip: shap not installed")
+        print(
+            "  WARNING: shap not installed — Figure 7 skipped. "
+            "Install: pip install -r requirements-optional.txt"
+        )
         return
 
     model, imp, scaler, feats = load_stacking("8_features")

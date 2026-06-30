@@ -53,9 +53,10 @@ See `docs/data_dictionary.md` for timing rules.
 
 ## Research demonstration calculator
 
-- Online (HTTPS): https://k.mixaihub.top
-- Local: `python inference.py` in this repository
-- **Not for clinical use** — research audit and reproducibility only
+- Online SHAP audit (HTTPS): https://k.mixaihub.top
+- Local probability: `python inference.py` in this repository
+- Local SHAP Figure 7: requires MIMIC data + `pip install -r requirements-optional.txt` + full pipeline
+- **Not for clinical use** — research audit only
 
 ## Security
 
@@ -64,4 +65,4 @@ See `docs/data_dictionary.md` for timing rules.
 
 ## Citation
 
-Li Y, et al. *Scientific Reports* — SHAP-Audited Machine-Learning Model for Short-Term Mortality Risk Stratification in ICU Patients With Documented Hypokalemia.
+Xie, Liangpeng, et al. *Scientific Reports* — SHAP-Audited Machine-Learning Model for Short-Term Mortality Risk Stratification in ICU Patients With Documented Hypokalemia. Code: https://github.com/linzixuan45/hypokalemia-icu-mortality

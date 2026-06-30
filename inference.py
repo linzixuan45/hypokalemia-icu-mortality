@@ -5,10 +5,9 @@ from __future__ import annotations
 import pickle
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
-FEATURES = [
+DEFAULT_FEATURES = [
     "rdw_mean",
     "wbc_min",
     "admission_age",
@@ -20,22 +19,36 @@ FEATURES = [
 ]
 
 ROOT = Path(__file__).resolve().parent
+_BUNDLE: dict | None = None
 
 
-def load_bundle():
-    with open(ROOT / "model_weights" / "8_features_model.pkl", "rb") as f:
-        return pickle.load(f)
+def load_bundle() -> dict:
+    global _BUNDLE
+    if _BUNDLE is None:
+        with open(ROOT / "model_weights" / "8_features_model.pkl", "rb") as f:
+            _BUNDLE = pickle.load(f)
+    return _BUNDLE
+
+
+def feature_names() -> list[str]:
+    bundle = load_bundle()
+    return list(bundle.get("features", DEFAULT_FEATURES))
 
 
 def predict_proba(row: dict) -> float:
     bundle = load_bundle()
+    features = feature_names()
+    missing = [k for k in features if k not in row]
+    if missing:
+        raise ValueError(f"Missing required features: {missing}. Expected: {features}")
+
     model = bundle["model"]
     imp = bundle["imputer"]
     scaler = bundle["scaler"]
-    df = pd.DataFrame([{k: row[k] for k in FEATURES}])
+    df = pd.DataFrame([{k: row[k] for k in features}])
     df["is_noninvasive_ventilator"] = int(float(row["is_noninvasive_ventilator"]) >= 0.5)
-    X = pd.DataFrame(imp.transform(df[FEATURES]), columns=FEATURES)
-    Xs = pd.DataFrame(scaler.transform(X), columns=FEATURES)
+    X = pd.DataFrame(imp.transform(df[features]), columns=features)
+    Xs = pd.DataFrame(scaler.transform(X), columns=features)
     return float(model.predict_proba(Xs)[0, 1])
 
 
@@ -50,5 +63,9 @@ if __name__ == "__main__":
         "platelet_min": 150,
         "aniongap_1st": 12,
     }
+    bundle = load_bundle()
     p = predict_proba(demo)
     print(f"7-day mortality probability: {p:.3f}")
+    if "threshold" in bundle:
+        print(f"Youden threshold (training OOF): {bundle['threshold']:.3f}")
+        print(f"Binary class (prob >= threshold): {int(p >= bundle['threshold'])}")
