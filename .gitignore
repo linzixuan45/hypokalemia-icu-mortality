@@ -1,0 +1,29 @@
+# Restricted / local data (not redistributed)
+data/
+!data/README.md
+result/
+result/r2_locked/reports/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Patient-level artifacts
+*.xlsx
+*.xls
+*.parquet
+*.csv
+!config/*.csv
+*.docx
+
+# Pickle artifacts except released model bundle
+*.pkl
+!model_weights/8_features_model.pkl
