@@ -147,14 +147,14 @@ If you use this repository, we ask that you:
 ```bibtex
 @article{hypokalemia_icu_mortality,
   title   = {SHAP-Audited Machine-Learning Model for Short-Term Mortality Risk Stratification in ICU Patients With Documented Hypokalemia: Development and Temporal External Validation},
-  author  = {[Author list -- fill after acceptance]},
-  journal = {[Journal name -- fill after acceptance]},
+  author  = {Xie, Liangpeng and [Other authors] and Li, Yapei},
+  journal = {Scientific Reports},
   volume  = {[Volume -- fill]},
   number  = {[Issue -- fill]},
   pages   = {[Pages -- fill]},
-  year    = {[Year -- fill]},
+  year    = {2026},
   doi     = {[DOI -- fill]},
-  note    = {Accompanying code: https://github.com/linzixuan45/hypokalemia-icu-mortality}
+  note    = {Manuscript under revision at Scientific Reports. Accompanying code: https://github.com/linzixuan45/hypokalemia-icu-mortality}
 }
 ```
 
