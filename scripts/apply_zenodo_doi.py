@@ -39,7 +39,8 @@ def main() -> int:
     text = text.replace("[Zenodo version DOI]", version_url)
     text = text.replace("| Zenodo concept DOI | Pending | |", f"| Zenodo concept DOI | Done | {concept_doi} |")
     text = text.replace("| Zenodo version DOI | Pending | |", f"| Zenodo version DOI | Done | {version_doi} |")
-    text = text.replace("| Release tag | Recommended | `v1.0.0` |", "| Release tag | Done | `v1.0.0` |")
+    text = text.replace("| Release tag | Recommended | `v1.0.0` |", "| Release tag | Done | `v2.0.1` |")
+    text = text.replace("| Release tag | Done | `v2.0.0` |", "| Release tag | Done | `v2.0.1` |")
     snippets.write_text(text)
 
     checklist = ROOT / "RELEASE_CHECKLIST.md"

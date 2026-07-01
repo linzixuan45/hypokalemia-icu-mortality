@@ -8,12 +8,12 @@
 ## GitHub
 
 - Repository: https://github.com/linzixuan45/hypokalemia-icu-mortality
-- Release tag: `v2.0.0` (version of record)
+- Release tag: `v2.0.1` (version of record)
 
 ## Zenodo (DOI-assigning archive)
 
 - Concept DOI: `10.5281/zenodo.21107168`
-- Version DOI: `10.5281/zenodo.21107169`
+- Version DOI: `10.5281/zenodo.21107312`
 
 ## What is deposited
 
@@ -33,7 +33,7 @@ Raw patient-level data, cohort ID lists, and summary result tables are **not** r
 Use a **separate** `Code availability` section after `Data availability` (do not nest under “Data and code availability”).
 
 ```text
-The code used for data preprocessing, model training, internal validation, temporal validation, model evaluation, inference, SHAP-based model interpretation, and figure generation has been deposited in Zenodo and is available at https://doi.org/10.5281/zenodo.21107169. The active development repository is available at https://github.com/linzixuan45/hypokalemia-icu-mortality. The repository includes the analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. Raw patient-level data are not redistributed because access to MIMIC and the local validation cohorts is restricted.
+The code used for data preprocessing, model training, internal validation, temporal validation, model evaluation, inference, SHAP-based model interpretation, and figure generation has been deposited in Zenodo and is available at https://doi.org/10.5281/zenodo.21107312. The active development repository is available at https://github.com/linzixuan45/hypokalemia-icu-mortality. The repository includes the analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. Raw patient-level data are not redistributed because access to MIMIC and the local validation cohorts is restricted.
 ```
 
 ## Manuscript text — optional calculator sentence (Methods or Code availability)
@@ -48,7 +48,7 @@ See [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) for the full publication-day ch
 
 1. Push to the public GitHub repository.
 2. In Zenodo, enable GitHub integration and select the repository.
-3. Create a GitHub release (e.g. `v2.0.0`).
+3. Create a GitHub release (e.g. `v2.0.1`).
 4. Confirm Zenodo generates a version DOI.
 5. Replace Zenodo placeholders in this file, `README.md`, `CITATION.bib`, and the manuscript.
 6. Add the Zenodo DOI to the point-by-point response letter.

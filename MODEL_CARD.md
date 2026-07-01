@@ -73,4 +73,4 @@ See `docs/data_dictionary.md` for timing rules.
 
 ## Citation
 
-Xie, Liangpeng, et al. *Scientific Reports* — SHAP-Audited Machine-Learning Model for Short-Term Mortality Risk Stratification in ICU Patients With Documented Hypokalemia. Code: https://github.com/linzixuan45/hypokalemia-icu-mortality · Zenodo: https://doi.org/10.5281/zenodo.21107169
+Xie, Liangpeng, et al. *Scientific Reports* — SHAP-Audited Machine-Learning Model for Short-Term Mortality Risk Stratification in ICU Patients With Documented Hypokalemia. Code: https://github.com/linzixuan45/hypokalemia-icu-mortality · Zenodo: https://doi.org/10.5281/zenodo.21107312

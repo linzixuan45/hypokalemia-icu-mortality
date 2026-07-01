@@ -199,10 +199,10 @@ Additional availability text: [CODE_AVAILABILITY.md](CODE_AVAILABILITY.md).
 | Resource | Link |
 |----------|------|
 | GitHub | https://github.com/linzixuan45/hypokalemia-icu-mortality |
-| Zenodo DOI | `https://doi.org/10.5281/zenodo.21107169` — see [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) |
+| Zenodo DOI | `https://doi.org/10.5281/zenodo.21107312` — see [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) |
 | Research demo | https://k.mixaihub.top |
 
-Version of record release tag: `v2.0.0`
+Version of record release tag: `v2.0.1`
 
 ---
 

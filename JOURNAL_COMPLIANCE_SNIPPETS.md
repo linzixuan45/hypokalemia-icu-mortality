@@ -8,7 +8,7 @@ Replace bracketed placeholders after Zenodo DOI assignment (see [RELEASE_CHECKLI
 ## 1. Code Availability (separate section after Data availability)
 
 ```text
-The code used for data preprocessing, model training, internal validation, temporal validation, model evaluation, inference, SHAP-based model interpretation, and figure generation has been deposited in Zenodo and is available at https://doi.org/10.5281/zenodo.21107169. The active development repository is available at https://github.com/linzixuan45/hypokalemia-icu-mortality. The repository includes the analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. Raw patient-level data are not redistributed because access to MIMIC and the local validation cohorts is restricted.
+The code used for data preprocessing, model training, internal validation, temporal validation, model evaluation, inference, SHAP-based model interpretation, and figure generation has been deposited in Zenodo and is available at https://doi.org/10.5281/zenodo.21107312. The active development repository is available at https://github.com/linzixuan45/hypokalemia-icu-mortality. The repository includes the analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. Raw patient-level data are not redistributed because access to MIMIC and the local validation cohorts is restricted.
 ```
 
 Optional calculator sentence (Methods or Code availability):
@@ -36,7 +36,7 @@ The study was approved by the relevant institutional review board, and all metho
 **Response:**
 
 ```text
-We thank the editor for this reminder. We have deposited the underlying analysis code in Zenodo (https://doi.org/10.5281/zenodo.21107169) and maintain the active development repository at https://github.com/linzixuan45/hypokalemia-icu-mortality. The deposit includes analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. We have also deployed an HTTPS research demonstration calculator at https://k.mixaihub.top (not for clinical use). The revised manuscript now includes a separate Code availability section with these links. Raw patient-level data were not redistributed because MIMIC and local validation cohorts are access-restricted.
+We thank the editor for this reminder. We have deposited the underlying analysis code in Zenodo (https://doi.org/10.5281/zenodo.21107312) and maintain the active development repository at https://github.com/linzixuan45/hypokalemia-icu-mortality. The deposit includes analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. We have also deployed an HTTPS research demonstration calculator at https://k.mixaihub.top (not for clinical use). The revised manuscript now includes a separate Code availability section with these links. Raw patient-level data were not redistributed because MIMIC and local validation cohorts are access-restricted.
 ```
 
 ---
@@ -60,6 +60,6 @@ We have added an explicit statement to the Methods section confirming that all m
 | Research demo URL | Done | https://k.mixaihub.top |
 | GitHub URL | Done | https://github.com/linzixuan45/hypokalemia-icu-mortality |
 | Zenodo concept DOI | Done | 10.5281/zenodo.21107168 |
-| Zenodo version DOI | Done | 10.5281/zenodo.21107169 |
-| Release tag | Done | `v2.0.0` |
+| Zenodo version DOI | Done | 10.5281/zenodo.21107312 |
+| Release tag | Done | `v2.0.1` |
 | Submission ID | Known | `91406a0b-fc8b-4fcf-95bc-820b99f21793` |
