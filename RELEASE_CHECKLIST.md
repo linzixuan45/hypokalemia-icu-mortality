@@ -10,15 +10,15 @@ Complete on publication day. Repository positioning: **auditable analysis source
 
 ## GitHub
 
-- [ ] Repository public at https://github.com/linzixuan45/hypokalemia-icu-mortality
-- [ ] Create release tag `v1.0.0` from the commit used for the manuscript
+- [x] Repository public at https://github.com/linzixuan45/hypokalemia-icu-mortality
+- [x] Create release tag `v1.0.0` from the commit used for the manuscript
 - [ ] Release notes mention: auditable code deposit, online calculator URL, no patient data
 
 ## Zenodo
 
-- [ ] Enable GitHub integration in Zenodo
-- [ ] Trigger archive from GitHub release `v1.0.0`
-- [ ] Record concept DOI and version DOI
+- [x] Enable GitHub integration in Zenodo
+- [x] Trigger archive from GitHub release `v1.0.0`
+- [x] Record concept DOI and version DOI
 
 ## Fill placeholders
 

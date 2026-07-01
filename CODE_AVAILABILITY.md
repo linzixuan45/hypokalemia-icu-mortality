@@ -8,12 +8,12 @@
 ## GitHub
 
 - Repository: https://github.com/linzixuan45/hypokalemia-icu-mortality
-- Release tag: `v1.0.0` (recommended)
+- Release tag: `v2.0.0` (version of record)
 
 ## Zenodo (DOI-assigning archive)
 
-- Concept DOI: `[Zenodo concept DOI — fill after linking GitHub]`
-- Version DOI: `[Zenodo version DOI — fill after release]`
+- Concept DOI: `10.5281/zenodo.21107168`
+- Version DOI: `10.5281/zenodo.21107169`
 
 ## What is deposited
 
@@ -31,7 +31,7 @@ Raw patient-level data, cohort ID lists, and summary result tables are **not** r
 ## Manuscript text (paste into Methods or Code Availability)
 
 ```text
-An HTTPS research demonstration calculator for the 8-feature model is available at https://k.mixaihub.top (not for clinical use). The underlying code and released research model bundle are available at https://github.com/linzixuan45/hypokalemia-icu-mortality and archived with a DOI at [Zenodo version DOI]. The repository includes the analysis pipeline, SQL extraction scripts, inference code, model card, and data dictionary. Raw patient-level data are not redistributed because access to MIMIC and local validation data is restricted.
+An HTTPS research demonstration calculator for the 8-feature model is available at https://k.mixaihub.top (not for clinical use). The underlying code and released research model bundle are available at https://github.com/linzixuan45/hypokalemia-icu-mortality and archived with a DOI at https://doi.org/10.5281/zenodo.21107169. The repository includes the analysis pipeline, SQL extraction scripts, inference code, model card, and data dictionary. Raw patient-level data are not redistributed because access to MIMIC and local validation data is restricted.
 ```
 
 ## Zenodo release checklist
@@ -40,7 +40,7 @@ See [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) for the full publication-day ch
 
 1. Push to the public GitHub repository.
 2. In Zenodo, enable GitHub integration and select the repository.
-3. Create a GitHub release (e.g. `v1.0.0`).
+3. Create a GitHub release (e.g. `v2.0.0`).
 4. Confirm Zenodo generates a version DOI.
 5. Replace Zenodo placeholders in this file, `README.md`, `CITATION.bib`, and the manuscript.
 6. Add the Zenodo DOI to the point-by-point response letter.
