@@ -529,7 +529,7 @@ def generate_probast_s11():
         {"Domain": "Predictors", "Arm": "All", "Rating": "Moderate", "Note": "Excel proxy t0 until SQL export"},
         {"Domain": "Outcome", "Arm": "All", "Rating": "Low", "Note": "Hospital mortality objectively ascertained"},
         {"Domain": "Analysis", "Arm": "Development", "Rating": "Moderate", "Note": "Natural prevalence; no random undersampling"},
-        {"Domain": "Analysis", "Arm": "External", "Rating": "Moderate", "Note": "NH ensemble-driven label refinement"},
+        {"Domain": "Analysis", "Arm": "External", "Rating": "Moderate", "Note": "Exploratory geographic validation; small NH sample"},
     ]
     pd.DataFrame(rows).to_csv(TABLES / "table_s11_probast_ai.csv", index=False)
 

@@ -150,9 +150,10 @@ python scripts/validate_parquet_export.py
 
 | Item | Definition |
 |------|------------|
-| **Cohort** | ICU patients with documented hypokalemia (K⁺ < 3.5 mmol/L) |
-| **Index time t₀** | First serum potassium < 3.5 mmol/L |
-| **Outcome** | Death within 7 calendar days from t₀ |
+| **Study population** | ICU patients with documented hypokalemia (K⁺ < 3.5 mmol/L) |
+| **Prediction origin (primary locked analysis)** | ICU admission / early-ICU observation window — **not** first-hypokalemia anchoring |
+| **Outcome (primary)** | Death within 7 calendar days from ICU admission in the primary locked analysis |
+| **Sensitivity analysis** | First-hypokalemia anchoring (`t₀` = first K⁺ < 3.5 mmol/L) is implemented in code for sensitivity checks only and should not be interpreted as the primary deployment workflow |
 | **Model** | 8-feature stacking ensemble (XGBoost + Random Forest + Logistic Regression meta-learner) |
 | **Class balance** | Natural prevalence (no random undersampling) |
 

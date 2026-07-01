@@ -28,10 +28,18 @@ The archived repository is positioned as **auditable analysis source code**. It 
 
 Raw patient-level data, cohort ID lists, and summary result tables are **not** redistributed because MIMIC and local validation data are access-restricted.
 
-## Manuscript text (paste into Methods or Code Availability)
+## Manuscript text — Code availability (paste under separate heading)
+
+Use a **separate** `Code availability` section after `Data availability` (do not nest under “Data and code availability”).
 
 ```text
-An HTTPS research demonstration calculator for the 8-feature model is available at https://k.mixaihub.top (not for clinical use). The underlying code and released research model bundle are available at https://github.com/linzixuan45/hypokalemia-icu-mortality and archived with a DOI at https://doi.org/10.5281/zenodo.21107169. The repository includes the analysis pipeline, SQL extraction scripts, inference code, model card, and data dictionary. Raw patient-level data are not redistributed because access to MIMIC and local validation data is restricted.
+The code used for data preprocessing, model training, internal validation, temporal validation, model evaluation, inference, SHAP-based model interpretation, and figure generation has been deposited in Zenodo and is available at https://doi.org/10.5281/zenodo.21107169. The active development repository is available at https://github.com/linzixuan45/hypokalemia-icu-mortality. The repository includes the analysis scripts, optional SQL extraction scripts, inference code, final research model objects, variable dictionary, README, and MODEL_CARD. Raw patient-level data are not redistributed because access to MIMIC and the local validation cohorts is restricted.
+```
+
+## Manuscript text — optional calculator sentence (Methods or Code availability)
+
+```text
+An HTTPS research demonstration calculator for the 8-feature model is available at https://k.mixaihub.top (not for clinical use).
 ```
 
 ## Zenodo release checklist
