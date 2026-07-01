@@ -71,7 +71,7 @@ Further detail: [preprocessing_excel.md](preprocessing_excel.md) · [internal/da
 |----------|---------|
 | [MODEL_CARD.md](../MODEL_CARD.md) | Model scope, features, performance, limitations |
 | [data_dictionary.md](data_dictionary.md) | 8-feature definitions and units |
-| [internal/MC1_spec.md](internal/MC1_spec.md) | Index time t₀, outcome, cohort rules |
+| [internal/MC1_spec.md](internal/MC1_spec.md) | Primary prediction origin, outcome, cohort rules; first-hypokalemia sensitivity |
 | [preprocessing_excel.md](preprocessing_excel.md) | Excel input contract and known limitations |
 | [CODE_AVAILABILITY.md](../CODE_AVAILABILITY.md) | Deposit scope for the manuscript |
 
